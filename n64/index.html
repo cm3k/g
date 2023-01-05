@@ -15,6 +15,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.0/nipplejs.min.js"></script>
+    <script>
+        function getParamsFromUrl() {
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            const game = urlParams.get('game');
+            console.log("game from url is " + game);
+
+            if (game == "fifa") {
+                document.getElementById("romselect").innerHTML = "<option rv-value='rom.url' value='roms/fifa99.z64'>FIFA 99</option>";
+            }
+
+            if (game == "kart") {
+                document.getElementById("romselect").innerHTML = "<option rv-value='rom.url' value='roms/mariokart64.z64'>Mario Kart 64</option>";
+            }
+
+            if (game == "mario") {
+                document.getElementById("romselect").innerHTML = "<option rv-value='rom.url' value='roms/mario64.z64'>Mario 64</option>";
+            }
+
+            if (game == "goldeneye") {
+                document.getElementById("romselect").innerHTML = "<option rv-value='rom.url' value='roms/goldeneye007.z64'>GoldenEye 007</option>";
+            }
+
+            if (game == "smash") {
+                document.getElementById("romselect").innerHTML = "<option rv-value='rom.url' value='roms/supersmashbros.z64'>Super Smash Bros</option>";
+            }
+        }
+    </script>
     <style>
 	  body {
             background-color: rgb(32, 32, 32);
@@ -58,7 +87,7 @@
     </style>
 </head>
 
-<body>
+<body onpageshow="getParamsFromUrl()">
     <div id="maindiv" class="container text-center">
         <h1 class="white">
             N64 Emulator
@@ -123,6 +152,7 @@
                 <input id="file-upload" type="file" />
 
                 <!-- ROM LIST -->
+
                 <div class="form-group mt-2 mb-4" rv-if="data.hasRoms" style="width: 300px;margin-left: auto; margin-right:auto;">
                     <select class="form-control" id="romselect">
                         <option rv-each-rom="data.romList" rv-value="rom.url">{rom.title}</option>
